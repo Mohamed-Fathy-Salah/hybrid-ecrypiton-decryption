@@ -5,12 +5,12 @@ def generate_key():
     key = RSA.generate(2048)
 
     public_key = key.publickey().exportKey('PEM')
-    with open("public_key", "wb") as f:
+    with open("generated/public_key", "wb") as f:
         f.write(public_key)
         f.close()
 
     private_key = key.export_key('PEM')
-    with open("private_key", "wb") as f:
+    with open("generated/private_key", "wb") as f:
         f.write(private_key)
         f.close()
 
@@ -23,7 +23,7 @@ def encrypt(text, key_file):
     rsa_public_key = PKCS1_OAEP.new(rsa_public_key)
     encrypted_text = rsa_public_key.encrypt(text)
 
-    with open("AES_key.enc", "wb") as f:
+    with open("encrypted/AES_key.enc", "wb") as f:
         f.write(encrypted_text)
         f.close()
 
@@ -39,8 +39,11 @@ def decrypt(text_file, key_file):
     rsa_private_key = RSA.importKey(private_key)
     rsa_private_key = PKCS1_OAEP.new(rsa_private_key)
     decrypted_text = rsa_private_key.decrypt(text)
+    
 
-    with open("{}.dec".format(text_file), "wb") as f:
+    decrypted_file = text_file.removesuffix('.enc')
+    decrypted_file = decrypted_file.split("/")[-1]
+    with open("decrypted/{}".format(decrypted_file), "wb") as f:
         f.write(decrypted_text)
         f.close()
 
