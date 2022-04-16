@@ -17,17 +17,21 @@ if __name__ == '__main__':
     if args.type == 0:
         RSA.generate_key()
     elif args.type == 1:
-        if(args.video == None):
+        if(args.video == None or args.RSA_key == None):
+            print("--video [-v] and --RSA_key [-r] (receiver public key) are needed")
             print("type `python VED.py -h` for help")
             exit()
 
         AES.encrypt(args.video, args.RSA_key)
+
     elif args.type == 2:
         if(args.video == None or args.AES_key == None or args.RSA_key == None):
+            print("--video [-v], --RSA_key [-r] (your private key) needed and --AES_key [-a] (encrypted AES key) are needed")
             print("type `python VED.py -h` for help")
             exit()
 
         AES.decrypt(args.video, args.AES_key, args.RSA_key)
+
     else:
         print("type `python VED.py -h` for help")
 
