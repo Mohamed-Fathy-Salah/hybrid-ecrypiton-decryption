@@ -2,6 +2,8 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 import os
 
+pad = b'1q2w3e4r'
+
 def generate_key():
     key = RSA.generate(2048)
 
@@ -21,6 +23,9 @@ def encrypt(text, public_key_file):
 
     rsa_public_key = RSA.importKey(public_key)
     rsa_public_key = PKCS1_OAEP.new(rsa_public_key)
+
+    # pad the text with dummy text
+    text = text + pad
     encrypted_text = rsa_public_key.encrypt(text)
 
     encrypted_file = os.path.join("encrypted", "AES_key.enc")
@@ -36,7 +41,12 @@ def decrypt(text_file, private_key_file):
 
     rsa_private_key = RSA.importKey(private_key)
     rsa_private_key = PKCS1_OAEP.new(rsa_private_key)
+
     decrypted_text = rsa_private_key.decrypt(text)
+
+    # remove padded text
+    decrypted_text = decrypted_text.removesuffix(pad)
+
     
     decrypted_file = os.path.join("decrypted", os.path.basename(text_file).removesuffix(".enc"))
     with open(decrypted_file, "wb") as f:
