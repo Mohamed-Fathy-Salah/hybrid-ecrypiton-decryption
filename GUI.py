@@ -7,8 +7,6 @@ import os
 import AES
 import RSA
 
-
-
 def start_fun():
     root_tk.destroy()
 
@@ -18,17 +16,13 @@ def open_file():
     entry.delete("0", "end")
     entry.insert(tkinter.END, filename)
 
-
-
-
 def encrypt_fun():
     global filename
-    AES.encrypt(filename,"public_key")
+    AES.encrypt(filename,os.path.join("generated", "public_key"))
     tkinter.messagebox.showinfo(title=None, message='Encryption Done\t\t\t')
 
-
 def decrypt_fun():
-    AES.decrypt(filename+'.enc', "AES_key.enc", "private_key")
+    AES.decrypt(filename, os.path.join("encrypted", "AES_key.enc"), os.path.join("generated", "private_key"))
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -73,8 +67,6 @@ def exit_win():
     if mbox.askokcancel("Exit", "Do you want to exit?"):
             root_tk.destroy()
 
-
-
 frame_1 = customtkinter.CTkFrame(master=root_tk, corner_radius=15)
 frame_1.pack(pady=30, padx=35, expand=True)
 
@@ -107,8 +99,4 @@ button_4 = customtkinter.CTkButton(master=frame_2, text="Exit",command =exit_win
 button_4.grid(row=2, column=1, columnspan=1, padx=10, pady=10, sticky="ew")
 
 root_tk.mainloop()
-
-
-
-
 
