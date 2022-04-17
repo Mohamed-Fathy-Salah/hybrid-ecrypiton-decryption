@@ -24,7 +24,11 @@ def encrypt_fun():
 def decrypt_fun():
     AES.decrypt(filename, os.path.join("encrypted", "AES_key.enc"), os.path.join("generated", "private_key"))
     tkinter.messagebox.showinfo(title=None, message='Decryption Done\t\t\t')
-
+    
+def generateKey_fun():
+    RSA.generate_key()
+    tkinter.messagebox.showinfo(title=None, message='Generated key Done\t\t\t')
+    
 PATH = os.path.dirname(os.path.realpath(__file__))
 
 customtkinter.set_appearance_mode("dark")
@@ -49,7 +53,7 @@ img.pack(pady=1)
 button_1= customtkinter.CTkButton(master=frame_1, image=start, text="Start",command=start_fun,text_font=("Raleway",14),corner_radius=10, width=190, compound="right",  fg_color="#42a5f5", hover_color="#D35B58")
 button_1.pack(padx=10, pady=20)
 
-button_2= customtkinter.CTkButton(master=frame_1, image=key, text="Generate Key",command=RSA.generate_key,text_font=("Raleway",14),corner_radius=10, width=20, compound="right", fg_color="#42a5f5", hover_color="#D35B58")
+button_2= customtkinter.CTkButton(master=frame_1, image=key, text="Generate Key",command=generateKey_fun,text_font=("Raleway",14),corner_radius=10, width=20, compound="right", fg_color="#42a5f5", hover_color="#D35B58")
 button_2.pack(padx=10, pady=10)
 
 root_tk.mainloop()
