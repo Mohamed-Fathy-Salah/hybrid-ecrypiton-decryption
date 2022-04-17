@@ -23,6 +23,7 @@ def encrypt_fun():
 
 def decrypt_fun():
     AES.decrypt(filename, os.path.join("encrypted", "AES_key.enc"), os.path.join("generated", "private_key"))
+    tkinter.messagebox.showinfo(title=None, message='Decryption Done\t\t\t')
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 
