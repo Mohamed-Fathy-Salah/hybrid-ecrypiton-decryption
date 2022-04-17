@@ -24,7 +24,7 @@ def open_file():
 def encrypt_fun():
     global filename
     AES.encrypt(filename,"public_key")
-    tk.messagebox.showinfo(title=None, message='Encryption Done\t\t\t')
+    tkinter.messagebox.showinfo(title=None, message='Encryption Done\t\t\t')
 
 
 def decrypt_fun():
