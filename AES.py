@@ -7,7 +7,7 @@ def encrypt(text_file, RSA_public_key_file):
     key = token_bytes(16)
     RSA.encrypt(key, RSA_public_key_file)
 
-    model = AES.new(key, AES.MODE_EAX, nonce=b'0')
+    model = AES.new(key, AES.MODE_GCM, nonce=b'0')
 
     with open(text_file, 'rb') as f:
         plain_text = f.read()
@@ -20,7 +20,7 @@ def encrypt(text_file, RSA_public_key_file):
 
 def decrypt(encrypted_file, AES_key_file, RSA_private_key_file):
     key = RSA.decrypt(AES_key_file, RSA_private_key_file)
-    model = AES.new(key, AES.MODE_EAX, nonce=b'0')
+    model = AES.new(key, AES.MODE_GCM, nonce=b'0')
 
     with open(encrypted_file, 'rb') as f:
         encrypted_text = f.read()
